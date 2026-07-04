@@ -27,6 +27,7 @@ export type VideoArticle = {
   articleTitle: string;
   videoUrl: string;
   thumbnailUrl: string;
+  transcriptPath: string;
   lede: string;
   sections: ArticleSection[];
   takeaways: string[];

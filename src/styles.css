@@ -80,6 +80,7 @@ mark {
 .nav-button,
 .meta-row span,
 .meta-row a,
+.meta-row button,
 .playlist-title,
 .rail-heading,
 .reference-links a,
@@ -361,13 +362,22 @@ h1 {
 }
 
 .meta-row span,
-.meta-row a {
+.meta-row a,
+.meta-row button {
   gap: 7px;
   min-height: 32px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--paper);
+  color: var(--ink);
   padding: 0 10px;
+  font-size: 0.9rem;
+}
+
+.meta-row button:hover {
+  border-color: rgba(11, 107, 99, 0.34);
+  background: var(--teal-soft);
+  color: var(--teal);
 }
 
 .concept-strip {
@@ -406,6 +416,67 @@ h1 {
   margin: 0;
   color: #244844;
   line-height: 1.45;
+}
+
+.transcript-card {
+  margin-top: 18px;
+  border: 1px solid rgba(23, 27, 29, 0.15);
+  border-radius: var(--radius);
+  background: #fbfcfb;
+  box-shadow: 0 18px 40px rgba(17, 27, 28, 0.08);
+  overflow: hidden;
+}
+
+.transcript-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, #ffffff, #f4f7f5);
+  padding: 16px 18px;
+}
+
+.transcript-card-header h2 {
+  margin: 0 0 5px;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.transcript-card-header p,
+.transcript-state {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.transcript-card-header a {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  padding: 0 10px;
+  color: var(--teal);
+  font-size: 0.86rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.transcript-state {
+  padding: 18px;
+}
+
+.transcript-text {
+  overflow: auto;
+  max-height: 460px;
+  padding: 18px;
+  color: #263034;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  white-space: pre-wrap;
 }
 
 .article-body {
@@ -697,12 +768,16 @@ h1 {
     grid-template-columns: 1fr;
   }
 
-.ref-grid,
-.reference-links {
+  .transcript-card-header {
+    display: grid;
+  }
+
+  .ref-grid,
+  .reference-links {
     grid-template-columns: 1fr;
   }
 
-.code-map-header {
+  .code-map-header {
     display: grid;
   }
 }

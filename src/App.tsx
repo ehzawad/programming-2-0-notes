@@ -4,6 +4,7 @@ import {
   CheckCircle2,
   Code2,
   ExternalLink,
+  FileText,
   Github,
   Library,
   ListTree,
@@ -16,8 +17,13 @@ import type { CodeReference, Playlist, VideoArticle } from "./types";
 import { cx, highlightText, normalize } from "./utils/text";
 
 type ViewMode = "article" | "code";
+type TranscriptStatus = "idle" | "loading" | "ready" | "error";
 
 const repoProfileUrl = "https://github.com/programming2point0?tab=repositories";
+
+function assetUrl(path: string) {
+  return `${import.meta.env.BASE_URL}${path}`;
+}
 
 function initialVideoId() {
   const hash = window.location.hash.replace("#", "");
@@ -264,6 +270,41 @@ function ArticleView({
   refs: CodeReference[];
   query: string;
 }) {
+  const [isTranscriptOpen, setIsTranscriptOpen] = useState(false);
+  const [transcriptText, setTranscriptText] = useState("");
+  const [transcriptStatus, setTranscriptStatus] = useState<TranscriptStatus>("idle");
+
+  useEffect(() => {
+    setIsTranscriptOpen(false);
+    setTranscriptText("");
+    setTranscriptStatus("idle");
+  }, [video.id]);
+
+  useEffect(() => {
+    if (!isTranscriptOpen || transcriptText) return;
+
+    const controller = new AbortController();
+    setTranscriptStatus("loading");
+
+    fetch(assetUrl(video.transcriptPath), { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Transcript request failed with ${response.status}`);
+        }
+        return response.text();
+      })
+      .then((text) => {
+        setTranscriptText(text.trim());
+        setTranscriptStatus("ready");
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setTranscriptStatus("error");
+      });
+
+    return () => controller.abort();
+  }, [isTranscriptOpen, transcriptText, video.transcriptPath]);
+
   return (
     <article className="article">
       <div className="article-hero">
@@ -288,6 +329,15 @@ function ArticleView({
               <PlayCircle size={16} />
               Watch video
             </a>
+            <button
+              type="button"
+              onClick={() => setIsTranscriptOpen((isOpen) => !isOpen)}
+              aria-expanded={isTranscriptOpen}
+              aria-controls={`transcript-${video.id}`}
+            >
+              <FileText size={16} />
+              {isTranscriptOpen ? "Hide transcript" : "Transcript"}
+            </button>
           </div>
         </div>
       </div>
@@ -302,6 +352,26 @@ function ArticleView({
         <CheckCircle2 size={19} />
         <p>Adapted into a written guide and checked against the public code references for this lesson.</p>
       </section>
+
+      {isTranscriptOpen && (
+        <section className="transcript-card" id={`transcript-${video.id}`}>
+          <div className="transcript-card-header">
+            <div>
+              <h2>Original Transcript</h2>
+              <p>Verbatim text from the downloaded transcript, loaded only when opened.</p>
+            </div>
+            <a href={assetUrl(video.transcriptPath)} target="_blank" rel="noreferrer">
+              Open text
+              <ExternalLink size={14} />
+            </a>
+          </div>
+          {transcriptStatus === "loading" && <p className="transcript-state">Loading transcript...</p>}
+          {transcriptStatus === "error" && (
+            <p className="transcript-state">Could not load the transcript file.</p>
+          )}
+          {transcriptStatus === "ready" && <div className="transcript-text">{transcriptText}</div>}
+        </section>
+      )}
 
       <div className="article-body">
         {video.sections.map((section) => (

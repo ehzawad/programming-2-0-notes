@@ -47,6 +47,7 @@ export const siteData = {
       "articleTitle": "Abstraction - in Art and Programming",
       "videoUrl": "https://www.youtube.com/watch?v=eyx25adnN6A",
       "thumbnailUrl": "https://i.ytimg.com/vi/eyx25adnN6A/hqdefault.jpg",
+      "transcriptPath": "transcripts/eyx25adnN6A.txt",
       "lede": "Abstraction is not the opposite of concrete code. It is the act of stepping away from unnecessary detail so that the important shape of a problem becomes visible.",
       "sections": [
         {
@@ -114,6 +115,7 @@ export const siteData = {
       "articleTitle": "Abstraction in practice - companion video",
       "videoUrl": "https://www.youtube.com/watch?v=n54Hr2Tk2Og",
       "thumbnailUrl": "https://i.ytimg.com/vi/n54Hr2Tk2Og/hqdefault.jpg",
+      "transcriptPath": "transcripts/n54Hr2Tk2Og.txt",
       "lede": "The companion video turns the abstraction discussion into a practical refactor: the same game behavior becomes easier to read when the code names the jobs it is doing.",
       "sections": [
         {
@@ -170,6 +172,7 @@ export const siteData = {
       "articleTitle": "Problem Solving with Abstraction | part 1/3",
       "videoUrl": "https://www.youtube.com/watch?v=nuRbPv6q2CI",
       "thumbnailUrl": "https://i.ytimg.com/vi/nuRbPv6q2CI/hqdefault.jpg",
+      "transcriptPath": "transcripts/nuRbPv6q2CI.txt",
       "lede": "Problem solving with abstraction begins before code. The first step is recognizing what kind of problem you are really facing, then looking for a similar shape you already understand.",
       "sections": [
         {
@@ -226,6 +229,7 @@ export const siteData = {
       "articleTitle": "Problem Solving with Abstraction | part 2/3",
       "videoUrl": "https://www.youtube.com/watch?v=KQEtEPQfdjU",
       "thumbnailUrl": "https://i.ytimg.com/vi/KQEtEPQfdjU/hqdefault.jpg",
+      "transcriptPath": "transcripts/KQEtEPQfdjU.txt",
       "lede": "The second abstraction episode continues the problem-solving thread with a close look at why too many abstraction levels at once make a problem feel larger than it is.",
       "sections": [
         {
@@ -283,6 +287,7 @@ export const siteData = {
       "articleTitle": "Problem Solving with Abstraction | part 3/3",
       "videoUrl": "https://www.youtube.com/watch?v=Fl0jna10f2g",
       "thumbnailUrl": "https://i.ytimg.com/vi/Fl0jna10f2g/hqdefault.jpg",
+      "transcriptPath": "transcripts/Fl0jna10f2g.txt",
       "lede": "The third episode turns the abstraction theory back into forward motion: climb up to understand the shape, then climb down deliberately to implement the next concrete step.",
       "sections": [
         {
@@ -340,6 +345,7 @@ export const siteData = {
       "articleTitle": "Problem Solving with Abstraction in practice - companion video",
       "videoUrl": "https://www.youtube.com/watch?v=C04r2qVpOC8",
       "thumbnailUrl": "https://i.ytimg.com/vi/C04r2qVpOC8/hqdefault.jpg",
+      "transcriptPath": "transcripts/C04r2qVpOC8.txt",
       "lede": "The companion video shows the produced code with explanations stripped back. It is the practical audit trail for the three-part abstraction series.",
       "sections": [
         {
@@ -397,6 +403,7 @@ export const siteData = {
       "articleTitle": "The Basics - Intro",
       "videoUrl": "https://www.youtube.com/watch?v=g7OqudbMEC4",
       "thumbnailUrl": "https://i.ytimg.com/vi/g7OqudbMEC4/hqdefault.jpg",
+      "transcriptPath": "transcripts/g7OqudbMEC4.txt",
       "lede": "The Basics opens with nostalgia for BASIC, but the real topic is deeper: fundamentals, mental models, creativity, and curiosity make it easier to keep learning after the tools change.",
       "sections": [
         {
@@ -469,6 +476,7 @@ export const siteData = {
       "articleTitle": "The Perfect Programming Process",
       "videoUrl": "https://www.youtube.com/watch?v=UsVd67Ys1t4",
       "thumbnailUrl": "https://i.ytimg.com/vi/UsVd67Ys1t4/hqdefault.jpg",
+      "transcriptPath": "transcripts/UsVd67Ys1t4.txt",
       "lede": "The perfect programming process is a deliberate refusal to start by typing. It treats planning, sketching, and understanding as part of programming, not as delays before programming.",
       "sections": [
         {
@@ -531,6 +539,7 @@ export const siteData = {
       "articleTitle": "Project TicTacToe - done poorly",
       "videoUrl": "https://www.youtube.com/watch?v=52ia2C0XyRM",
       "thumbnailUrl": "https://i.ytimg.com/vi/52ia2C0XyRM/hqdefault.jpg",
+      "transcriptPath": "transcripts/52ia2C0XyRM.txt",
       "lede": "The failed TicTacToe attempt is useful because it is honest. It shows what happens when the process is named but not really followed.",
       "sections": [
         {
@@ -591,6 +600,7 @@ export const siteData = {
       "articleTitle": "Project TicTacToe - done right",
       "videoUrl": "https://www.youtube.com/watch?v=ertvnBmwPTY",
       "thumbnailUrl": "https://i.ytimg.com/vi/ertvnBmwPTY/hqdefault.jpg",
+      "transcriptPath": "transcripts/ertvnBmwPTY.txt",
       "lede": "The second TicTacToe attempt succeeds by trusting the process more completely: plan the game, enumerate the rules, then implement the plain version before trying to make it elegant.",
       "sections": [
         {
@@ -655,7 +665,7 @@ export const siteData = {
       "endLine": 101,
       "note": "The original loop performs movement, collision, damage, and display in one dense flow.",
       "url": "https://github.com/programming2point0/asteroids/blob/00-starter/script.js#L59-L101",
-      "code": "function tick(timestamp) {\n  requestAnimationFrame(tick);\n\n  const delta = (timestamp - lastTime) / 1000;\n  lastTime = timestamp;\n\n  if (controls.left && object.x > object.w / 2) {\n    object.x -= object.s * delta;\n  } else if (controls.right && object.x < 770) {\n    object.x += object.s * delta;\n  }\n\n  if (controls.up && object.y > object.h / 2) {\n    object.y -= object.s * delta;\n  } else if (controls.down && object.y < 410) {\n    object.y += object.s * delta;\n  }\n\n  for (let i = 0; i < objects.length; i++) {\n    objects[i].y += objects[i].s * delta;\n    if (objects[i].y > 450) {\n      objects[i].y = -30;\n      objects[i].x = Math.floor(Math.random() * 750);\n    }\n  }\n\n  for (let i = 0; i < objects.length; i++) {\n    if (Math.sqrt(Math.pow(objects[i].x - object.x, 2) +\n        Math.pow(objects[i].y - object.y, 2)) \n        < objects[i].w / 2 + object.w / 2) {\n      objects[i].s *= 0.95;\n      object.hl--;\n    }\n  }\n\n  const visualSpaceShip = document.querySelector(\".spaceship\");\n  visualSpaceShip.style.translate = `${object.x - object.w / 2}px ${object.y - object.h / 2}px`;\n\n  for (let i = 0; i < objects.length; i++) {\n    objects[i].visual.style.translate = `${objects[i].x - 25}px ${objects[i].y - 25}px`;\n  }\n\n  document.querySelector(\"#score #number\").textContent = String(points).padStart(3, \"0\");"
+      "code": "function tick(timestamp) {\n  requestAnimationFrame(tick);\n\n  const delta = (timestamp - lastTime) / 1000;\n  lastTime = timestamp;\n\n  if (controls.left && object.x > object.w / 2) {\n    object.x -= object.s * delta;\n  } else if (controls.right && object.x < 770) {\n    object.x += object.s * delta;\n  }\n\n  if (controls.up && object.y > object.h / 2) {\n    object.y -= object.s * delta;\n  } else if (controls.down && object.y < 410) {\n    object.y += object.s * delta;\n  }\n\n  for (let i = 0; i < objects.length; i++) {\n    objects[i].y += objects[i].s * delta;\n    if (objects[i].y > 450) {\n      objects[i].y = -30;\n      objects[i].x = Math.floor(Math.random() * 750);\n    }\n  }\n\n  for (let i = 0; i < objects.length; i++) {\n    if (Math.sqrt(Math.pow(objects[i].x - object.x, 2) +\n        Math.pow(objects[i].y - object.y, 2))\n        < objects[i].w / 2 + object.w / 2) {\n      objects[i].s *= 0.95;\n      object.hl--;\n    }\n  }\n\n  const visualSpaceShip = document.querySelector(\".spaceship\");\n  visualSpaceShip.style.translate = `${object.x - object.w / 2}px ${object.y - object.h / 2}px`;\n\n  for (let i = 0; i < objects.length; i++) {\n    objects[i].visual.style.translate = `${objects[i].x - 25}px ${objects[i].y - 25}px`;\n  }\n\n  document.querySelector(\"#score #number\").textContent = String(points).padStart(3, \"0\");"
     },
     {
       "id": "asteroids-collision-abstraction",
@@ -715,7 +725,7 @@ export const siteData = {
       "endLine": 105,
       "note": "A concrete example of a system image: key codes become editor actions through a loop.",
       "url": "https://github.com/programming2point0/c64-c-editor/blob/main/main.asm#L51-L105",
-      "code": "getkey: jsr GETIN\n        cmp #$00\n        beq getkey\n/*\n        ldx #$01\n        ldy #$00\n        jsr st_setpos\n        pha\n        jsr st_print_hex        // only for debugging\n        pla\n*/\n        cmp #$13\n        beq key_crsr_home\n//        cmp #$93\n//        beq key_crsr_sh_home\n        cmp #$91\n        beq key_crsr_up\n        cmp #$11\n        beq key_crsr_down\n        cmp #$9d\n        beq key_crsr_left\n        cmp #$1d\n        beq key_crsr_right\n\n        cmp #$0d\n        beq key_return\n        cmp #$14\n        beq key_delete          // aka backspace\n        cmp #$94\n        beq key_insert\n\n        // Debugging tools for displaying memory, erasing line and entering complete line\n        cmp #$85\n        beq key_f1\n        cmp #$89\n        beq key_f2\n        cmp #$86\n        beq key_f3\n  \n        cmp #$8a\n        beq key_f4\n        cmp #$87\n        beq key_f5\n/*        cmp #$8b\n        beq key_f6\n        cmp #$88\n        beq key_f7\n        cmp #$8c\n        beq key_f8\n*/\n        // todo: only if printable char\n        jsr printchar\n        jsr color_line\nnxtchar:jsr cursor_update\n        jmp getkey"
+      "code": "getkey: jsr GETIN\n        cmp #$00\n        beq getkey\n/*\n        ldx #$01\n        ldy #$00\n        jsr st_setpos\n        pha\n        jsr st_print_hex        // only for debugging\n        pla\n*/\n        cmp #$13\n        beq key_crsr_home\n//        cmp #$93\n//        beq key_crsr_sh_home\n        cmp #$91\n        beq key_crsr_up\n        cmp #$11\n        beq key_crsr_down\n        cmp #$9d\n        beq key_crsr_left\n        cmp #$1d\n        beq key_crsr_right\n\n        cmp #$0d\n        beq key_return\n        cmp #$14\n        beq key_delete          // aka backspace\n        cmp #$94\n        beq key_insert\n\n        // Debugging tools for displaying memory, erasing line and entering complete line\n        cmp #$85\n        beq key_f1\n        cmp #$89\n        beq key_f2\n        cmp #$86\n        beq key_f3\n\n        cmp #$8a\n        beq key_f4\n        cmp #$87\n        beq key_f5\n/*        cmp #$8b\n        beq key_f6\n        cmp #$88\n        beq key_f7\n        cmp #$8c\n        beq key_f8\n*/\n        // todo: only if printable char\n        jsr printchar\n        jsr color_line\nnxtchar:jsr cursor_update\n        jmp getkey"
     },
     {
       "id": "tictactoe-poor-win-checks",

@@ -9,6 +9,7 @@ const workspaceRoot = path.resolve(siteRoot, "../..");
 const contentSourceRoot = path.join(workspaceRoot, "outputs/named-playlists");
 const githubRoot = path.join(workspaceRoot, "work/github");
 const outPath = path.join(siteRoot, "src/data/siteData.ts");
+const transcriptOutRoot = path.join(siteRoot, "public/transcripts");
 
 if (!fs.existsSync(contentSourceRoot) || !fs.existsSync(githubRoot)) {
   if (fs.existsSync(outPath)) {
@@ -613,6 +614,13 @@ function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
+function transcriptBodyFor(folder, relativeFile) {
+  const filePath = path.join(contentSourceRoot, folder, relativeFile);
+  const text = fs.readFileSync(filePath, "utf8").trim();
+  const bodyStart = text.indexOf("\n\n");
+  return bodyStart >= 0 ? text.slice(bodyStart + 2).trim() : text;
+}
+
 function repoFile(spec) {
   const repoPath = path.join(githubRoot, spec.repo);
   if (spec.branch === "main") {
@@ -628,6 +636,7 @@ function lineSlice(source, startLine, endLine) {
   return source
     .split(/\r?\n/)
     .slice(startLine - 1, endLine)
+    .map((line) => line.trimEnd())
     .join("\n")
     .trimEnd();
 }
@@ -652,12 +661,21 @@ const playlistData = playlists.map((playlist) => {
   };
 });
 
+fs.rmSync(transcriptOutRoot, { force: true, recursive: true });
+fs.mkdirSync(transcriptOutRoot, { recursive: true });
+
 const videos = playlistData.flatMap((playlist) =>
   playlist.sourceVideos.map((video) => {
     const spec = articleSpecs[video.id];
     if (!spec) {
       throw new Error(`Missing article spec for ${video.id}`);
     }
+
+    const transcriptPath = `transcripts/${video.id}.txt`;
+    fs.writeFileSync(
+      path.join(siteRoot, "public", transcriptPath),
+      `${transcriptBodyFor(playlist.folder, video.file)}\n`,
+    );
 
     return {
       id: video.id,
@@ -668,6 +686,7 @@ const videos = playlistData.flatMap((playlist) =>
       articleTitle: video.title,
       videoUrl: `https://www.youtube.com/watch?v=${video.id}`,
       thumbnailUrl: `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`,
+      transcriptPath,
       lede: spec.lede,
       sections: spec.sections,
       takeaways: spec.takeaways,
