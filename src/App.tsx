@@ -4,9 +4,7 @@ import {
   CheckCircle2,
   Code2,
   ExternalLink,
-  FileText,
   Github,
-  Languages,
   Library,
   ListTree,
   PlayCircle,
@@ -17,7 +15,7 @@ import { siteData } from "./data/siteData";
 import type { CodeReference, Playlist, VideoArticle } from "./types";
 import { cx, highlightText, normalize } from "./utils/text";
 
-type ViewMode = "article" | "source" | "code";
+type ViewMode = "article" | "code";
 
 const repoProfileUrl = "https://github.com/programming2point0?tab=repositories";
 
@@ -56,7 +54,6 @@ export default function App() {
           video.concepts.join(" "),
           video.sections.map((section) => `${section.heading} ${section.body.join(" ")}`).join(" "),
           video.takeaways.join(" "),
-          video.sourceTranscript,
           refs.map((ref) => `${ref.title} ${ref.note} ${ref.code}`).join(" "),
         ].join(" ");
         return {
@@ -110,7 +107,7 @@ export default function App() {
           </button>
           <a className="nav-button" href={repoProfileUrl} target="_blank" rel="noreferrer">
             <Github size={18} />
-            Source Repos
+            Repos
           </a>
         </nav>
         <label className="searchbox">
@@ -118,7 +115,7 @@ export default function App() {
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search articles, transcripts, code..."
+            placeholder="Search articles and code..."
           />
         </label>
       </header>
@@ -141,16 +138,13 @@ export default function App() {
               video={selectedVideo}
               refs={selectedRefs}
               query={query}
-              onShowSource={() => setViewMode("source")}
             />
           )}
-
-          {viewMode === "source" && <SourceView video={selectedVideo} />}
 
           {viewMode === "code" && <CodeMapView selectedVideo={selectedVideo} />}
         </main>
 
-        <aside className="reference-rail" aria-label="Code and source references">
+        <aside className="reference-rail" aria-label="Code references">
           <ReferenceRail video={selectedVideo} refs={selectedRefs} onShowCode={() => setViewMode("code")} />
         </aside>
       </div>
@@ -179,9 +173,9 @@ function PlaylistRail({
           onSelectVideo={onSelectVideo}
         />
       ))}
-      <div className="source-card">
+      <div className="stats-card">
         <Archive size={18} />
-        <p>10 videos, 3 playlists, no timestamp transcript files used.</p>
+        <p>10 videos, 3 playlists, connected to the original code.</p>
       </div>
     </aside>
   );
@@ -219,7 +213,7 @@ function PlaylistGroup({
             <span className="video-number">{String(video.order).padStart(2, "0")}</span>
             <span className="video-row-text">
               <span>{video.title}</span>
-              <small>{video.originalLanguage} source</small>
+              <small>Article</small>
             </span>
           </button>
         ))}
@@ -265,12 +259,10 @@ function ArticleView({
   video,
   refs,
   query,
-  onShowSource,
 }: {
   video: VideoArticle;
   refs: CodeReference[];
   query: string;
-  onShowSource: () => void;
 }) {
   return (
     <article className="article">
@@ -285,12 +277,12 @@ function ArticleView({
           <p className="lede">{highlightText(video.lede, query)}</p>
           <div className="meta-row">
             <span>
-              <Languages size={16} />
-              {video.originalLanguage} source, English article
+              <BookOpen size={16} />
+              Article
             </span>
             <span>
-              <FileText size={16} />
-              {video.wordCount.toLocaleString()} transcript words
+              <CheckCircle2 size={16} />
+              Adapted from video material
             </span>
             <a href={video.videoUrl} target="_blank" rel="noreferrer">
               <PlayCircle size={16} />
@@ -308,10 +300,7 @@ function ArticleView({
 
       <section className="note-box">
         <CheckCircle2 size={19} />
-        <p>{video.languageNote}</p>
-        <button type="button" onClick={onShowSource}>
-          Read source transcript
-        </button>
+        <p>Adapted into a written guide and checked against the public code references for this lesson.</p>
       </section>
 
       <div className="article-body">
@@ -352,28 +341,6 @@ function ArticleView({
           </div>
         </section>
       )}
-    </article>
-  );
-}
-
-function SourceView({ video }: { video: VideoArticle }) {
-  return (
-    <article className="source-view">
-      <div className="source-header">
-        <div>
-          <div className="crumbs">
-            <span>{video.playlistTitle}</span>
-            <span>Source Transcript</span>
-          </div>
-          <h1>{video.title}</h1>
-          <p>{video.languageNote}</p>
-        </div>
-        <a href={video.transcriptSourceUrl} target="_blank" rel="noreferrer">
-          Transcript source
-          <ExternalLink size={16} />
-        </a>
-      </div>
-      <pre className="transcript">{video.sourceTranscript}</pre>
     </article>
   );
 }
@@ -433,15 +400,15 @@ function ReferenceRail({
         <Code2 size={17} />
         <span>Code & References</span>
       </div>
-      <div className="source-links">
+      <div className="reference-links">
         <a href={video.videoUrl} target="_blank" rel="noreferrer">
           <PlayCircle size={16} />
           Video
           <ExternalLink size={13} />
         </a>
-        <a href={video.transcriptSourceUrl} target="_blank" rel="noreferrer">
-          <FileText size={16} />
-          Transcript
+        <a href={repoProfileUrl} target="_blank" rel="noreferrer">
+          <Github size={16} />
+          Repos
           <ExternalLink size={13} />
         </a>
       </div>

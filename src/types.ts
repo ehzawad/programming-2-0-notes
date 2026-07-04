@@ -6,7 +6,6 @@ export type CodeReference = {
   repo: string;
   branch: string;
   file: string;
-  language: string;
   startLine: number;
   endLine: number;
   url: string;
@@ -28,13 +27,6 @@ export type VideoArticle = {
   articleTitle: string;
   videoUrl: string;
   thumbnailUrl: string;
-  originalLanguage: "English" | "Danish";
-  articleLanguage: "English";
-  languageNote: string;
-  transcriptSourceUrl: string;
-  sourceTranscript: string;
-  wordCount: number;
-  estimatedMinutes: number;
   lede: string;
   sections: ArticleSection[];
   takeaways: string[];
@@ -51,7 +43,6 @@ export type Playlist = {
 };
 
 export type SiteData = {
-  generatedAt: string;
   playlists: Playlist[];
   videos: VideoArticle[];
   codeReferences: CodeReference[];
